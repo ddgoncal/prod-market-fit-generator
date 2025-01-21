@@ -31,7 +31,8 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/app/components/signin.js"
   ],
   "exclude": [
     "node_modules"
