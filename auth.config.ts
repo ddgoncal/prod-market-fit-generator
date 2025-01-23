@@ -4,10 +4,13 @@ import Google from 'next-auth/providers/google';
  
 export const authConfig = {
   pages: {
-    signIn: '/login',
+    signIn: '/auth/login',
+    error: '/auth/error', // Error code passed in query string as ?error=
+    signOut: '/auth/signup',
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
+      debugger;
       const isLoggedIn = !!auth?.user;
       const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
       if (isOnDashboard) {
@@ -19,5 +22,5 @@ export const authConfig = {
       return true;
     },
   },
-  providers: [GitHub, Google], // Add providers with an empty array for now
+  providers: [GitHub, Google], // We'll configure these in auth.ts
 } satisfies NextAuthConfig;
