@@ -49,50 +49,39 @@ export default function PreviewPage() {
                     <h3 className="text-lg font-medium mb-4">
                         Question {index + 1}: {question.text}
                     </h3>
-                    {question.type === 'single-choice' && (
+                    {question.type === 'single-choice' && question.options && (
                         <div className="space-y-2">
-                            <div className="flex items-center">
-                                <input
-                                    type="radio"
-                                    name={`question-${index}`}
-                                    id={`q${index}-option1`}
-                                    className="mr-2"
-                                    disabled
-                                />
-                                <label htmlFor={`q${index}-option1`}>Option 1</label>
-                            </div>
-                            <div className="flex items-center">
-                                <input
-                                    type="radio"
-                                    name={`question-${index}`}
-                                    id={`q${index}-option2`}
-                                    className="mr-2"
-                                    disabled
-                                />
-                                <label htmlFor={`q${index}-option2`}>Option 2</label>
-                            </div>
+                            {question.options.map((option, optionIndex) => (
+                                <div key={optionIndex} className="flex items-center">
+                                    <input
+                                        type="radio"
+                                        name={`question-${index}`}
+                                        id={`q${index}-option${optionIndex}`}
+                                        className="mr-2"
+                                        disabled
+                                    />
+                                    <label htmlFor={`q${index}-option${optionIndex}`}>
+                                        {option.text || `Option ${optionIndex + 1}`}
+                                    </label>
+                                </div>
+                            ))}
                         </div>
                     )}
-                    {question.type === 'multiple-choice' && (
+                    {question.type === 'multiple-choice' && question.options && (
                         <div className="space-y-2">
-                            <div className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    id={`q${index}-option1`}
-                                    className="mr-2"
-                                    disabled
-                                />
-                                <label htmlFor={`q${index}-option1`}>Option 1</label>
-                            </div>
-                            <div className="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    id={`q${index}-option2`}
-                                    className="mr-2"
-                                    disabled
-                                />
-                                <label htmlFor={`q${index}-option2`}>Option 2</label>
-                            </div>
+                            {question.options.map((option, optionIndex) => (
+                                <div key={optionIndex} className="flex items-center">
+                                    <input
+                                        type="checkbox"
+                                        id={`q${index}-option${optionIndex}`}
+                                        className="mr-2"
+                                        disabled
+                                    />
+                                    <label htmlFor={`q${index}-option${optionIndex}`}>
+                                        {option.text || `Option ${optionIndex + 1}`}
+                                    </label>
+                                </div>
+                            ))}
                         </div>
                     )}
                     {question.type === 'text' && (
@@ -129,9 +118,9 @@ export default function PreviewPage() {
                         {activeTab === 'form' ? <FormPreview /> : <JsonPreview />}
                     </div>
                 </div>
-                
+
                 <div className="flex justify-center space-x-4">
-                    <Link 
+                    <Link
                         href="/quiz"
                         className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                     >
