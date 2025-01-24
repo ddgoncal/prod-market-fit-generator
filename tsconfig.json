@@ -24,8 +24,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": ["./*"] // Maps any import starting with @/ to the root of the project
+    },
   },
   "include": [
     "next-env.d.ts",

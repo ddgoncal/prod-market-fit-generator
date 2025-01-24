@@ -1,10 +1,11 @@
 
 "use client";
 import { FC, useEffect } from 'react'
+import { useRouter } from 'next/navigation';
 import { getSession, signOut } from 'next-auth/react'
 
 const DashboardPage: FC = () => {
-
+  const router = useRouter();
   const handleSignOut = async () => {
     // Sign out from the current session
     await signOut({ callbackUrl: '/' });
@@ -12,12 +13,14 @@ const DashboardPage: FC = () => {
 
   useEffect(() => {
     getSession().then((session) => {
-      console.log(session);
+      if (session == null) {
+        router.push('/');
+      }
     });
     return () => {
     }
-  }, [])
-  
+  }, [router]);
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
